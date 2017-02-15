@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "$(set | grep "REQUEST_")" >&2
+# echo "$(set | grep "REQUEST_")" >&2
 
 content="$(cat << EndOfText
 <svg 
@@ -58,9 +58,9 @@ function clickActionBar(evt) {
 setTimeout(function() {
   sendRequest();
 },100);
-setInterval(function() {
-  setContent(document.getElementById('status_text'));
-},1000);
+//setInterval(function() {
+//  setContent(document.getElementById('status_text'));
+//},1000);
 
 //]]></script>
   <g id="status">
