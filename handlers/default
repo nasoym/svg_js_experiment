@@ -11,7 +11,9 @@ html="$(cat << EndOfText
 <hr>
 <a href="/asset.svg"> asset </a>
 <hr>
-<img src="/asset.svg" width=200 height=150/>
+<!--<img src="/asset.svg" width=200 height=150/>
+<hr> -->
+<embed src="/asset.svg" type="image/svg+xml" width=200 height=150/>
 <hr>
 </body>
 </html>

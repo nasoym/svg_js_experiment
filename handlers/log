@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+echo "log $(date +%FT%T)" >&2
+echo "log"
+
