@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+#<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+#<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" 
+#xmlns:xlink="http://www.w3.org/1999/xlink"
+#version="1.1"
+
+content="$(cat << EndOfText
+<svg 
+width="100%" height="100%" 
+xmlns="http://www.w3.org/2000/svg" 
+xmlns:xlink="http://www.w3.org/1999/xlink"
+version="1.1"
+style="background: #888888"
+onload="init(evt)"
+>
+<script type="application/ecmascript"><![CDATA[
+window.addEventListener('load',function(){
+alert('HI');
+});
+function init(evt){
+  alert('HI');
+}
+
+function createOn( root, name, a ){
+  var el = document.createElementNS(svgNS,name);
+  for (var n in a) if (a.hasOwnProperty(n)) el.setAttribute(n,a[n]);
+  return root.appendChild(el);
+}
+// Trust someone else for the root, in case we're being
+// imported into another document
+if (!window.svgRoot) svgRoot=document.documentElement;
+var svgNS = svgRoot.namespaceURI;
+createOn(svgRoot,'rect',{
+  x:10, y:10, width:30, height:30,
+  stroke:'#8080ff', "stroke-width":5,
+  fill:"none"
+});
+
+]]></script>
+  <rect x="10" y="10" height="80" width="80" style="stroke:#ff0000; fill: #0000ff"/>
+</svg>
+EndOfText
+)"
+echo_response_status_line
+echo_response_default_headers
+echo -e "Content-Type: image/svg+xml\r"
+echo -e "Content-Length: ${#content}\r"
+echo -e "\r"
+
+echo "${content}"
+
+

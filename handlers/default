@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+html="$(cat << EndOfText
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+</head>
+<body>
+<h2>hello world</h2>
+<hr>
+<a href="/asset.svg"> asset </a>
+<hr>
+<img src="/asset.svg" width=200 height=150/>
+<hr>
+</body>
+</html>
+EndOfText
+)"
+echo_response_status_line
+echo_response_default_headers
+echo -e "Content-Type: text/html; charset=utf-8\r"
+echo -e "Content-Length: ${#html}\r"
+echo -e "\r"
+
+echo "${html}"
+
+
+
