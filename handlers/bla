@@ -3,6 +3,7 @@
 if [[ "$REQUEST_METHOD" = "POST" ]];then
   cat > $(dirname $0)/../data/bla
 elif [[ "$REQUEST_METHOD" = "GET" ]];then
+  echo "$(date +%FT%T): get bla" >&2
   cat $(dirname $0)/../data/bla
 fi
 

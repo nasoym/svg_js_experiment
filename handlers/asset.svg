@@ -20,43 +20,74 @@ function init(evt) {
   console.log("init");
 }
 function sendRequest() {
-  var xhr = new XMLHttpRequest;
-  xhr.open('get','/log',true);
+  var response = "";
+  var xhr = new XMLHttpRequest();
+  xhr.open('get','/bla',true);
   xhr.onreadystatechange = function(){
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-      console.log(xhr.response);
-      console.log(xhr.responseText);
-      //alert(xhr.response);
+      response = xhr.response;
     }
   };
-  xhr.send();
+  xhr.send(null);
+  return response;
 }
-function clickAction(evt) {
-  //alert('HI');
-  sendRequest();
-  var foo  = document.getElementById('foo_text');
-  foo.textContent='ffff';
-  foo.style.display = "none";
-  console.log(foo);
-  console.log(foo.textContent);
+function setContent(element) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('get','/bla',true);
+  // xhr.onload = function() {};
+  // xhr.timeout = 1000;
+  xhr.onreadystatechange = function(){
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+      element.textContent = xhr.response;
+    }
+  };
+  xhr.send(null);
+}
+function clickActionFoo(evt) {
+  console.log('click foo');
+  setContent(document.getElementById('bar_text'));
+  document.getElementById('foo').style.display = "none";
+  document.getElementById('bar').style.display = "block";
+}
+function clickActionBar(evt) {
+  console.log('click bar');
+  setContent(document.getElementById('foo_text'));
+  document.getElementById('foo').style.display = "block";
+  document.getElementById('bar').style.display = "none";
 }
 setTimeout(function() {
   sendRequest();
 },100);
+setInterval(function() {
+  setContent(document.getElementById('status_text'));
+},1000);
 
 //]]></script>
+  <g id="status">
+    <rect x="100" y="10" height="80" width="80" style="fill: #ff00ff"/>
+    <text id="status_text" x="150" y="50" font-size="18" fill="#eeffee">
+        foo
+    </text>
+  </g>
   <g id="foo">
-    <rect onclick="clickAction()" x="10" y="10" height="80" width="80" style="stroke:#ff0000; fill: #0000ff"/>
+    <rect onclick="clickActionFoo()" x="10" y="10" height="80" width="80" 
+    style="stroke:#ff0000; fill: #0000ff"/>
     <text id="foo_text" x="50" y="50" font-size="18" fill="#eeffee">
-        bla
+        foo
     </text>
   </g>
-  <g id="bar">
-    <rect onclick="clickAction()" x="10" y="10" height="80" width="80" style="stroke:#ff0000; fill: #0000ff"/>
+  <g id="bar" display="none">
+    <rect onclick="clickActionBar()" x="10" y="10" height="80" width="80" 
+    style="stroke:#ffff00; fill: #008888"/>
     <text id="bar_text" x="50" y="50" font-size="18" fill="#eeffee">
-        bla
+        bar
     </text>
   </g>
+  <g>
+
+    <image x="300" y="10" width="75" height="95" xlink:href="http://www.google.co.uk/images/srpr/logo3w.png" />
+  </g>
+
 </svg>
 EndOfText
 )"

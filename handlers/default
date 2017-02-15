@@ -13,7 +13,7 @@ html="$(cat << EndOfText
 <hr>
 <!--<img src="/asset.svg" width=200 height=150/>
 <hr> -->
-<embed src="/asset.svg" type="image/svg+xml" width=200 height=150/>
+<embed src="/asset.svg" type="image/svg+xml" width=400 height=150/>
 <hr>
 </body>
 </html>
