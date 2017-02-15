@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 echo "$(set | grep "REQUEST_")" >&2
-# onload="init(evt)"
 
 content="$(cat << EndOfText
 <svg 
@@ -10,10 +9,15 @@ xmlns="http://www.w3.org/2000/svg"
 xmlns:xlink="http://www.w3.org/1999/xlink"
 version="1.1"
 style="background: #888888"
+onload="onLoaded(evt)"
 >
 <script type="application/ecmascript"><![CDATA[
+function onLoaded(evt) {
+  console.log("on loaded");
+}
 function init(evt) {
-  alert('HI init');
+  //alert('HI init');
+  console.log("init");
 }
 function sendRequest() {
   var xhr = new XMLHttpRequest;
@@ -22,7 +26,7 @@ function sendRequest() {
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
       console.log(xhr.response);
       console.log(xhr.responseText);
-      alert(xhr.response);
+      //alert(xhr.response);
     }
   };
   xhr.send();
@@ -30,13 +34,29 @@ function sendRequest() {
 function clickAction(evt) {
   //alert('HI');
   sendRequest();
+  var foo  = document.getElementById('foo_text');
+  foo.textContent='ffff';
+  foo.style.display = "none";
+  console.log(foo);
+  console.log(foo.textContent);
 }
 setTimeout(function() {
   sendRequest();
 },100);
 
 //]]></script>
-  <rect onclick="clickAction()" x="10" y="10" height="80" width="80" style="stroke:#ff0000; fill: #0000ff"/>
+  <g id="foo">
+    <rect onclick="clickAction()" x="10" y="10" height="80" width="80" style="stroke:#ff0000; fill: #0000ff"/>
+    <text id="foo_text" x="50" y="50" font-size="18" fill="#eeffee">
+        bla
+    </text>
+  </g>
+  <g id="bar">
+    <rect onclick="clickAction()" x="10" y="10" height="80" width="80" style="stroke:#ff0000; fill: #0000ff"/>
+    <text id="bar_text" x="50" y="50" font-size="18" fill="#eeffee">
+        bla
+    </text>
+  </g>
 </svg>
 EndOfText
 )"
